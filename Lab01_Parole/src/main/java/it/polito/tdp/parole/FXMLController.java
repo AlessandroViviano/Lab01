@@ -28,18 +28,40 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private Button btnCancella;
 
     @FXML
     private Button btnReset;
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	String parolaNuova = txtParola.getText();
+    	elenco.addParola(parolaNuova);
+    	String str = "";
+    	for(String s: elenco.getElenco())
+    		str += s+"\n";
+    	//txtResult.clear();
+    	//txtResult.appendText(str);
+    	txtResult.setText(str);
+    }
+    
+    @FXML
+    void doCancella(ActionEvent event) {
+    	String selected = txtResult.getSelectedText();
+    	elenco.cancella(selected);
+    	String str = "";
+    	for(String s: elenco.getElenco())
+    		str += s+"\n";
+    	txtResult.clear();
+    	txtResult.setText(str);
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	elenco.reset();
+    	txtResult.clear();
     }
 
     @FXML
@@ -48,6 +70,7 @@ public class FXMLController {
         assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert btnCancella != null : "fx:id=\"btnCancella\" was not injected: check your FXML file 'Scene.fxml'.";
 
         elenco = new Parole() ;
     }
